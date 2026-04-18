@@ -1,0 +1,316 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS  — Duolingo-style system
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Brand / primary action (= correct / success) */
+  --color-primary:        #58CC02;
+  --color-primary-hover:  #61E002;
+  --color-primary-shadow: #46A302;
+
+  /* Secondary / info */
+  --color-secondary:        #1CB0F6;
+  --color-secondary-hover:  #14A0E6;
+  --color-secondary-shadow: #0E8FC7;
+
+  /* Error / wrong / lives */
+  --color-error:        #FF4B4B;
+  --color-error-hover:  #FF3838;
+  --color-error-shadow: #D63333;
+
+  /* Reward / XP / streak */
+  --color-reward:        #FFC800;
+  --color-reward-shadow: #E0A500;
+
+  /* Neutrals */
+  --color-ink:         #3C3C3C;
+  --color-ink-muted:   #777777;
+  --color-border:      #E5E5E5;
+  --color-border-dark: #D0D0D0;
+  --color-surface:     #F7F7F7;
+  --color-canvas:      #FFFFFF;
+  --color-disabled:    #AFAFAF;
+
+  /* Soft tinted backgrounds */
+  --bg-error-soft:   #FFE9E9;
+  --bg-reward-soft:  #FFF4D1;
+  --bg-primary-soft: #DDF4B7;
+  --bg-info-soft:    #DDF4FE;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer base {
+  html {
+    font-family: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  * { box-sizing: border-box; }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--color-ink);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMPONENTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer components {
+
+  /* ── Signature Duolingo button ──────────────────────────────────────────── */
+  /* 4px solid bottom shadow, translates down 2px on press. */
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    background: var(--color-primary);
+    box-shadow: 0 4px 0 var(--color-primary-shadow);
+    transition: filter 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    text-decoration: none;
+  }
+  .btn-primary:hover:not(:disabled)  { filter: brightness(1.06); }
+  .btn-primary:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 var(--color-primary-shadow); }
+  .btn-primary:disabled              { background: var(--color-disabled); box-shadow: 0 4px 0 #8a8a8a; cursor: not-allowed; opacity: 1; }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    background: var(--color-secondary);
+    box-shadow: 0 4px 0 var(--color-secondary-shadow);
+    transition: filter 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    text-decoration: none;
+  }
+  .btn-secondary:hover:not(:disabled)  { filter: brightness(1.06); }
+  .btn-secondary:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 var(--color-secondary-shadow); }
+  .btn-secondary:disabled              { background: var(--color-disabled); box-shadow: 0 4px 0 #8a8a8a; cursor: not-allowed; opacity: 1; }
+
+  /* success = same as primary (green = correct/progress) */
+  .btn-success {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    background: var(--color-primary);
+    box-shadow: 0 4px 0 var(--color-primary-shadow);
+    transition: filter 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    text-decoration: none;
+  }
+  .btn-success:hover:not(:disabled)  { filter: brightness(1.06); }
+  .btn-success:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 var(--color-primary-shadow); }
+  .btn-success:disabled              { background: var(--color-disabled); box-shadow: 0 4px 0 #8a8a8a; cursor: not-allowed; opacity: 1; }
+
+  .btn-error {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    background: var(--color-error);
+    box-shadow: 0 4px 0 var(--color-error-shadow);
+    transition: filter 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  .btn-error:hover:not(:disabled)  { filter: brightness(1.06); }
+  .btn-error:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 var(--color-error-shadow); }
+
+  /* Ghost / outline variant for back/cancel */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    color: var(--color-ink);
+    background: white;
+    border: 2px solid var(--color-border);
+    box-shadow: 0 4px 0 var(--color-border-dark);
+    transition: filter 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    text-decoration: none;
+  }
+  .btn-ghost:hover:not(:disabled)  { background: var(--color-surface); }
+  .btn-ghost:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 var(--color-border-dark); }
+
+  /* ── Cards ── flat, border-based, no drop shadow ─────────────────────── */
+  .card {
+    background: white;
+    border: 2px solid var(--color-border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .card-hover {
+    background: white;
+    border: 2px solid var(--color-border);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+  }
+  .card-hover:hover { border-color: var(--color-secondary); }
+
+  /* ── Inputs ─────────────────────────────────────────────────────────────── */
+  .input-field {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 2px solid var(--color-border);
+    background: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-ink);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .input-field::placeholder { color: var(--color-ink-muted); }
+  .input-field:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--bg-primary-soft);
+  }
+
+  /* ── Progress bar — plump Duolingo style ────────────────────────────────── */
+  .progress {
+    height: 16px;
+    background: var(--color-border);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-sm {
+    height: 10px;
+    background: var(--color-border);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: 999px;
+    transition: width 0.4s ease;
+    box-shadow: inset 0 -4px 0 rgba(0,0,0,0.08), inset 0 4px 0 rgba(255,255,255,0.25);
+  }
+
+  /* ── HUD pill badges ─────────────────────────────────────────────────────── */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .pill-lives  { background: var(--bg-error-soft);   color: var(--color-error);    }
+  .pill-streak { background: var(--bg-reward-soft);  color: #B07800;               }
+  .pill-xp     { background: var(--bg-primary-soft); color: #3C8500;               }
+  .pill-info   { background: var(--bg-info-soft);    color: var(--color-secondary); }
+
+  /* ── Answer / choice cards ───────────────────────────────────────────────── */
+  .choice {
+    background: white;
+    border: 2px solid var(--color-border);
+    border-bottom-width: 4px;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background 0.1s ease, border-color 0.1s ease;
+  }
+  .choice:hover       { background: #F0FAFF; border-color: var(--color-secondary); }
+  .choice.selected    { background: var(--bg-info-soft); border-color: var(--color-secondary); color: var(--color-secondary); }
+  .choice.correct     { background: var(--bg-primary-soft); border-color: var(--color-primary); color: #3C8500; }
+  .choice.incorrect   { background: var(--bg-error-soft); border-color: var(--color-error); color: #B03030; }
+
+  /* ── Inline badge ───────────────────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold;
+  }
+
+  /* ── Skeleton ────────────────────────────────────────────────────────────── */
+  .skeleton {
+    @apply bg-gray-200 animate-pulse rounded-xl;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer utilities {
+  /* Decorative only — not for status/semantic meaning */
+  .text-gradient {
+    color: var(--color-primary);
+  }
+
+  .bg-shimmer {
+    background: linear-gradient(90deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0.6) 50%,
+      rgba(255,255,255,0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite linear;
+  }
+}

@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("PARENT")
+  children      Child[]
+  refreshTokens RefreshToken[]
+  createdAt     DateTime @default(now())
+}
+
+model Child {
+  id         String        @id @default(uuid())
+  name       String
+  age        Int
+  avatarSeed String        @default("default")
+  parentId   String
+  parent     User          @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  sessions   Session[]
+  reports    NeuroReport[]
+  badges     Badge[]
+  xp         Int           @default(0)
+  level      Int           @default(1)
+  streak     Int           @default(0)
+  hearts     Int           @default(5)
+  lastActive DateTime?
+  createdAt  DateTime      @default(now())
+}
+
+model Session {
+  id          String     @id @default(uuid())
+  childId     String
+  child       Child      @relation(fields: [childId], references: [id], onDelete: Cascade)
+  exercises   Exercise[]
+  xpEarned    Int        @default(0)
+  score       Float?
+  startedAt   DateTime   @default(now())
+  completedAt DateTime?
+}
+
+model Exercise {
+  id             String   @id @default(uuid())
+  sessionId      String
+  session        Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  type           String
+  prompt         String
+  targetResponse String
+  audioUrl       String?
+  transcript     String?
+  analysis       String?
+  score          Float?
+  xpEarned       Int      @default(0)
+  latencyMs      Int?
+  durationMs     Int?
+  completedAt    DateTime @default(now())
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model NeuroReport {
+  id          String   @id @default(uuid())
+  childId     String
+  child       Child    @relation(fields: [childId], references: [id], onDelete: Cascade)
+  riskLevel   String   @default("LOW")
+  flags       String   @default("[]")
+  domains     String   @default("{}")
+  summary     String?
+  generatedAt DateTime @default(now())
+}
+
+model Badge {
+  id       String   @id @default(uuid())
+  childId  String
+  child    Child    @relation(fields: [childId], references: [id], onDelete: Cascade)
+  type     String
+  earnedAt DateTime @default(now())
+
+  @@unique([childId, type])
+}
